@@ -1,3 +1,5 @@
+use std::env;
+
 use axum::response::Response;
 use axum::routing::any;
 use axum::{middleware, Router};
@@ -24,6 +26,11 @@ async fn main() {
     
     let app_state = AppState::new("db.sqlite");
 
+    let port = match env::var("BACKEND_PORT") {
+        Ok(p) => p,
+        Err(_) => "3000".to_string()
+    };
+
     //merge routes here
     let app = Router::new()
         .nest("/user", user::routes(app_state))
@@ -33,7 +40,7 @@ async fn main() {
         .layer(CookieManagerLayer::new())
         .route("/{*wildcard}", any(static_error));
 
-    let listener = TcpListener::bind("0.0.0.0:3000")
+    let listener = TcpListener::bind(format!("0.0.0.0:{}", port))
         .await
 .unwrap();
     axum::serve(listener, app).await.unwrap();
