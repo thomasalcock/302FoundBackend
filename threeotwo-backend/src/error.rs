@@ -4,6 +4,7 @@ use crate::auth::AuthError;
 
 pub type Result<T> = core::result::Result<T, Error>;
 
+#[derive(Clone, Debug)]
 pub enum Error {
     AuthError(AuthError),
     UnknownError

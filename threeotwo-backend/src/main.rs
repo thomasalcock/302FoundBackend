@@ -27,6 +27,7 @@ async fn main() {
 
     let app_state = AppState::new("db.sqlite");
 
+
     let port = match env::var("BACKEND_PORT") {
         Ok(p) => p,
         Err(_) => "3000".to_string(),
@@ -35,9 +36,9 @@ async fn main() {
     //merge routes here
     let app = Router::new()
         .nest("/users", user::routes(app_state))
-        .layer(middleware::map_response(auth::require_auth))
-        .nest("/auth", auth::routes())
         .layer(middleware::map_response(map_all_responses))
+        .layer(middleware::from_fn(auth::require_auth))
+        .nest("/auth", auth::routes())
         .layer(CookieManagerLayer::new())
         .layer(CorsLayer::permissive())
         .route("/{*wildcard}", any(static_error));

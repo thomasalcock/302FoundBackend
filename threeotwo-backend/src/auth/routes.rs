@@ -26,7 +26,8 @@ async fn signup(_payload: Json<LoginPayload>) -> Result<Json<Value>> {
 }
 
 async fn login(cookies: Cookies, payload: Json<LoginPayload>) -> Result<Json<Value>> {
-    if payload.user_name != "admin" && payload.password != "password" {
+    if payload.user_name != "admin" || payload.password != "password" {
+        println!("WRONG PASSWORD OR USER_NAME");
         return Err(Error::AuthError(AuthError::LoginFailed));
     }
     
