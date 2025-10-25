@@ -1,1 +1,1 @@
-/home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/threeotwo-backend: /home/villmox/git/302FoundBackend/threeotwo-backend/src/main.rs
+/home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/threeotwo-backend: /home/villmox/git/302FoundBackend/threeotwo-backend/src/main.rs /home/villmox/git/302FoundBackend/threeotwo-backend/src/user/mod.rs
