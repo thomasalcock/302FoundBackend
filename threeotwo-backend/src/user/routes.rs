@@ -1,24 +1,29 @@
 use crate::error::{Error, Result};
 
-use axum::{routing::{get, post}, Json, Router};
+use axum::{extract::Path, routing::{delete, get, post, put}, Json, Router};
 use serde_json::{json, Value};
 
 use crate::AppState;
 pub fn routes(_app_state : AppState) -> Router {
     Router::new()
-        .route("/create", post(create_user))
-        .route("/update", post(update_user))
-        .route("/read", get(read_user))
-        .route("/delete", post(delete_user))
+        .route("/", post(create_user))
+        .route("/:id", put(update_user))
+        .route("/", get(read_users))
+        .route("/:id", get(read_user))
+        .route("/:id", delete(delete_user))
 }
 
 async fn create_user() -> Result<Json<Value>> {
+    println!("HANDLER: CREATING USER");
+
     Ok(Json(json!({})))
 }
 
-async fn update_user() {
+async fn update_user(Path(id) : Path<String>) {
     todo!();
 }
+
+async fn read_users() {}
 
 async fn read_user() {
     todo!();
