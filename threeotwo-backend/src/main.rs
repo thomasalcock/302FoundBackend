@@ -12,6 +12,7 @@ use crate::error::Error;
 
 mod auth;
 mod user;
+mod context;
 
 pub struct AppState {}
 impl AppState {
