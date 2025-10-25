@@ -15,7 +15,7 @@ impl IntoResponse for AuthError {
         match self {
             AuthError::LoginFailed => (StatusCode::INTERNAL_SERVER_ERROR, "LOGIN_FAILED").into_response(),
             AuthError::NoToken => (StatusCode::INTERNAL_SERVER_ERROR, "TOKEN_MISSING").into_response(),
-            _ => (StatusCode::BAD_REQUEST, "LOGIN_FAILED").into_response()
+            //_ => (StatusCode::BAD_REQUEST, "LOGIN_FAILED").into_response()
         }
     }
 }

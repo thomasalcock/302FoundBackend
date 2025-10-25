@@ -44,6 +44,12 @@ async fn main() {
     let listener = TcpListener::bind(format!("0.0.0.0:{}", port))
         .await
         .unwrap();
+<<<<<<< HEAD
+=======
+    
+    println!("SERVER LISTING ON {}", listener.local_addr().unwrap());
+
+>>>>>>> 3e22d19 (server start message)
     axum::serve(listener, app).await.unwrap();
 
     println!("SERVER IS SHUT DOWN");
