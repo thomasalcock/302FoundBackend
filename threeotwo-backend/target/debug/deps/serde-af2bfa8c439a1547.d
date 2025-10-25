@@ -1,0 +1,14 @@
+/home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/deps/libserde-af2bfa8c439a1547.rmeta: /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/build/serde-82cebfdf210ceb9f/out/private.rs
+
+/home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/deps/libserde-af2bfa8c439a1547.rlib: /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/build/serde-82cebfdf210ceb9f/out/private.rs
+
+/home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/deps/serde-af2bfa8c439a1547.d: /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/build/serde-82cebfdf210ceb9f/out/private.rs
+
+/home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs:
+/home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs:
+/home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs:
+/home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs:
+/home/villmox/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs:
+/home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/build/serde-82cebfdf210ceb9f/out/private.rs:
+
+# env-dep:OUT_DIR=/home/villmox/git/302FoundBackend/threeotwo-backend/target/debug/build/serde-82cebfdf210ceb9f/out
