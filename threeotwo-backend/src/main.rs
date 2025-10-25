@@ -22,12 +22,13 @@ impl AppState {
 async fn main() {
     println!("STARTING WEB SERVER");
     
-    let mut app_state = AppState::new("db.sqlite");
+    let app_state = AppState::new("db.sqlite");
 
     //merge routes here
     let app = Router::new()
-        .nest("/auth", auth::routes())
         .nest("/user", user::routes(app_state))
+        .layer(middleware::map_response(auth::require_auth))
+        .nest("/auth", auth::routes())
         .layer(middleware::map_response(map_all_responses))
         .layer(CookieManagerLayer::new())
         .route("/{*wildcard}", any(static_error));
