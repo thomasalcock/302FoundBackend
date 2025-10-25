@@ -1,13 +1,16 @@
-use crate::{auth::{AuthError, AUTH_TOKEN}, error::{Error, Result}};
-use axum::{routing::post, Json, Router};
+use crate::{
+    auth::{AUTH_TOKEN, AuthError},
+    error::{Error, Result},
+};
+use axum::{Json, Router, routing::post};
 use serde::Deserialize;
-use serde_json::{json, Value};
-use tower_cookies::{Cookie, Cookies};
+use serde_json::{Value, json};
+use tower_cookies::{Cookie, Cookies, cookie::SameSite};
 
 #[derive(Debug, Deserialize)]
 pub struct LoginPayload {
     user_name: String,
-    password: String
+    password: String,
 }
 
 pub fn routes() -> Router {
@@ -22,7 +25,6 @@ async fn signup(_payload: Json<LoginPayload>) -> Result<Json<Value>> {
             "success": true
         }
     })))
-
 }
 
 async fn login(cookies: Cookies, payload: Json<LoginPayload>) -> Result<Json<Value>> {
@@ -30,8 +32,12 @@ async fn login(cookies: Cookies, payload: Json<LoginPayload>) -> Result<Json<Val
         println!("WRONG PASSWORD OR USER_NAME");
         return Err(Error::AuthError(AuthError::LoginFailed));
     }
-    
-    cookies.add(Cookie::new(AUTH_TOKEN, "user-1.exp.sign"));
+
+    let mut cookie = Cookie::new(AUTH_TOKEN, "user-1.exp.sign");
+    cookie.set_path("/");
+    cookie.set_same_site(SameSite::Lax);
+    cookie.set_secure(false);
+    cookies.add(cookie);
 
     Ok(Json(json!({
         "result": {
