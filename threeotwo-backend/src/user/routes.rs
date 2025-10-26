@@ -13,6 +13,7 @@ pub fn routes() -> Router<AppState> {
         .route("/", get(read_users))
         .route("/{id}", get(read_user))
         .route("/{id}", delete(delete_user))
+        .route("/{id}/trustees", get(my_trustees))
 }
 
 async fn create_user(State(mut app_state) : State<AppState>, Json(user): Json<UserForCreate>) -> Result<Json<Value>> {
@@ -49,6 +50,15 @@ async fn read_user(State(app_state): State<AppState>, Path(id): Path<String>) ->
 
     Ok(Json(serde_json::to_value(&results).map_err(|_| Error::UnknownError)?))
 }
+
+async fn my_trustees(State(app_state): State<AppState>, Path(id): Path<String>) -> Result<Json<Value>>{
+    println!("HANDLER: READ USERS TRUSTED BY ID {}", id);
+    let id = id.parse().map_err(|_| Error::UnknownError)?;
+    let results = app_state.my_trustees(id).await?;
+
+    Ok(Json(serde_json::to_value(&results).map_err(|_| Error::UnknownError)?))
+}
+
 
 async fn delete_user() {}
 
