@@ -14,11 +14,9 @@ use crate::error::{Error, Result};
 
 pub async fn require_auth(
     context: Result<Context>,
-    cookies: Cookies,
     req: Request<Body>,
     next: Next,
 ) -> Result<Response> {
-    println!("{} cookies", cookies.list().len());
 
     context?;
     Ok(next.run(req).await)
@@ -38,14 +36,11 @@ impl<S: Sync + Send> FromRequestParts<S> for Context {
 
     async fn from_request_parts(parts: &mut Parts, _state: &S) -> Result<Self> {
         let cookies = parts.extract::<Cookies>().await.unwrap();
-        println!("size: {}", cookies.list().len());
-        println!("{}", cookies.get(AUTH_TOKEN).unwrap());
         let (user_id, _, _) = cookies
             .get(AUTH_TOKEN)
             .map(|c| c.value().to_string())
             .ok_or(Error::AuthError(AuthError::NoCookies))
             .and_then(parse_token)?;
-        println!("user_id: {}", user_id);
         Ok(Context::new(user_id))
     }
 }

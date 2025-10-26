@@ -11,8 +11,7 @@ axum-extra = "0.10"
 tower-cookies = "0.11"
 tower-http = { version = "0.6", features = ["cors"]}
 
-rusqlite = { version = "0.37"}
-async-trait = "0.1"
+sqlx = {version = "0.8", features = ["sqlite", "macros", "runtime-tokio-rustls"]}
 
 serde = {version = "1", features = ["derive"]}
 serde_json = {version = "1"}

@@ -1,5 +1,6 @@
 
 use anyhow::Result;
+use axum::Json;
 use serde_json::json;
 
 #[tokio::test]
@@ -38,4 +39,18 @@ async fn test_login() -> Result<()> {
 
     Ok(())
 
+}
+
+#[tokio::test]
+async fn test_user_create() -> Result<()> {
+    let client = httpc_test::new_client("http://localhost:3000")?;
+
+    client.do_post("/auth/login", json!({
+        "user_name" : "admin",
+        "password" : "password"
+    })).await?.print().await?;
+
+    client.do_post("/users", json!({"id": 12})).await?.print().await?;
+    Ok(())
+   
 }

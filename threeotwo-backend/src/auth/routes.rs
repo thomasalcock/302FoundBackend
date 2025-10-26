@@ -1,6 +1,6 @@
 use crate::{
-    auth::{AUTH_TOKEN, AuthError},
-    error::{Error, Result},
+    auth::{AuthError, AUTH_TOKEN},
+    error::{Error, Result}, AppState,
 };
 use axum::{Json, Router, routing::post};
 use serde::Deserialize;
@@ -13,7 +13,7 @@ pub struct LoginPayload {
     password: String,
 }
 
-pub fn routes() -> Router {
+pub fn routes() -> Router<AppState> {
     Router::new()
         .route("/signup", post(signup))
         .route("/login", post(login))
