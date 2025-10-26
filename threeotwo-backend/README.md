@@ -1,53 +1,14 @@
-## Requirements
+## Overview
+This is the reference implementation of the api 302.
+This api has three objects: user, location and trust
+any user can add trusted people to their list of trustees, but every information is opt in.
+Users can add information to help others (trusted people and authorities) help.
 
-Axum, Axum-Tower, 
+This server has no own frontend.
+It is just the public api component, used for different events.
 
-## Database
+## Important components
+rust, axum, sqlite/sqlx
 
-user {
-    #id: u64,
-    auth_token: String,
-    user_name: String,
-    full_name: String,
-    phone_number: String,
-    email: String
-    alias: u64
-}
-
-trust {
-    #truster: u64,
-    #trustee: u64
-}
-
-location {
-    #user: u64,
-    #time: date,
-    lat: f64,
-    long: f64,
-    direction: real
-}
-
-## API
-
-/auth
-    /signup {user_name, password} -> bool
-    /login {user_name, password} -> auth_token
-
-/user
-    /create {User} -> bool
-    /read {} -> [User]
-    /read/{u64} -> User
-    /update {User} -> bool
-    /delete {u64} -> bool
-
-/location
-    /create{real, real, real} -> Location
-    /read/{u64} -> [Location]
-    /read/{u64, date} -> Location
-    /delete{u64} -> bool
-
-
-/trust
-    /create {u64} -> bool
-    /read -> [User]
-    /delete -> bool
+## Roadmap
+- implement more fine control on the kind of information, each person may see
