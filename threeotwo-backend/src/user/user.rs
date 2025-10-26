@@ -1,4 +1,4 @@
-use crate::{error::{Error, Result}, AppState};
+use crate::{error::{Error, Result}, location::location::Location, AppState};
 
 use serde::{Deserialize, Serialize};
 use sqlx::{query, query_as, FromRow};
@@ -35,7 +35,8 @@ pub trait UserStore {
     async fn users(&self) -> Result<Vec<DBUser>>;
     async fn user_by_id(&self, user_id: u64) -> Result<User>; 
     async fn my_trustees(&self, user_id: u64) -> Result<Vec<DBUser>>;
-    async fn delete_user(&mut self, user_id: u64) -> Result<()>;
+    async fn my_locations(&self, user_id: u64) -> Result<Vec<Location>>;
+    async fn delete_user(&self, user_id: u64) -> Result<()>;
 }
 
 impl AppState {
@@ -117,7 +118,20 @@ impl UserStore for AppState {
         Ok(result)
     }
 
+    async fn my_locations(&self, user_id: u64) -> Result<Vec<Location>> {
+        println!("READING USER LOCASIONS({})", user_id);
+        
+        let result = query_as("SELECT * FROM location where user_id = $1")
+            .bind(user_id.to_string())
+            .fetch_all(self.conn())
+            .await
+            .map_err(|_| Error::DatabaseError)?;
 
-    async fn delete_user(&mut self, _user_id: u64) -> Result<()> {todo!()}
+        Ok(result)
+    }
+
+
+
+    async fn delete_user(&self, _user_id: u64) -> Result<()> {todo!()}
 }
 

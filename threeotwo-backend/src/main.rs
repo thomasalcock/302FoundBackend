@@ -20,9 +20,9 @@ mod auth;
 mod context;
 mod user;
 mod trust;
+mod location;
 
 mod app_state;
-pub use app_state::*;
 
 #[tokio::main]
 async fn main() {
@@ -53,6 +53,7 @@ async fn main() {
     let app = Router::new()
         .nest("/trusts", trust::routes())
         .nest("/users", user::routes())
+        .nest("/location", location::routes())
         .layer(middleware::map_response(map_all_responses))
         .layer(middleware::from_fn(auth::require_auth))
         .nest("/auth", auth::routes())

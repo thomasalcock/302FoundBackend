@@ -14,6 +14,7 @@ pub fn routes() -> Router<AppState> {
         .route("/{id}", get(read_user))
         .route("/{id}", delete(delete_user))
         .route("/{id}/trustees", get(my_trustees))
+        .route("/{id}/locations", get(my_locations))
 }
 
 async fn create_user(State(mut app_state) : State<AppState>, Json(user): Json<UserForCreate>) -> Result<Json<Value>> {
@@ -59,6 +60,20 @@ async fn my_trustees(State(app_state): State<AppState>, Path(id): Path<String>) 
     Ok(Json(serde_json::to_value(&results).map_err(|_| Error::UnknownError)?))
 }
 
+async fn my_locations(State(app_state): State<AppState>, Path(id): Path<String>) -> Result<Json<Value>>{
+    println!("HANDLER: READ LOCATIONSTRUSTED BY ID {}", id);
+    let id = id.parse().map_err(|_| Error::UnknownError)?;
+    let results = app_state.my_locations(id).await?;
 
-async fn delete_user() {}
+    Ok(Json(serde_json::to_value(&results).map_err(|_| Error::UnknownError)?))
+}
+
+
+
+async fn delete_user(State(app_state): State<AppState>, Path(id): Path<u64>) -> Result<Json<Value>> {
+    println!("HANDLER: DELETING ID {}", id);
+    app_state.delete_user(id).await?;
+
+     Ok(Json(json!({ "result" : { "success" : true } })))
+}
 
