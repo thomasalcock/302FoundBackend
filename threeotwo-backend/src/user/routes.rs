@@ -1,4 +1,4 @@
-use crate::{error::Result, user::user::{UserForCreate, UserStore}};
+use crate::{error::{Error, Result}, user::user::{User, UserForCreate, UserStore}};
 
 use axum::{extract::{Path, State}, routing::{delete, get, post, put}, Json, Router};
 use serde_json::{json, Value};
@@ -22,18 +22,32 @@ async fn create_user(State(mut app_state) : State<AppState>, Json(user): Json<Us
     Ok(Json(json!({})))
 }
 
-async fn update_user(Path(_id) : Path<String>) {
-    todo!();
+async fn update_user(
+    State(mut app_state) : State<AppState>,
+    Path(id) : Path<String>,
+    Json(user_for_update) : Json<User>) -> Result<Json<Value>> {
+    app_state.update_user(id.parse().map_err(|_| Error::UnknownError)?, user_for_update).await?;
+    
+    Ok(Json(json!({
+        "result" : {
+            "success" : true
+        }
+    })))
 }
 
-async fn read_users() -> Result<Json<Value>>{
+async fn read_users(State(app_state): State<AppState>) -> Result<Json<Value>>{
     println!("HANDLER: READ ALL USERS");
-    Ok(Json(json!({"status": "works"})))
+    let results = app_state.users().await?;
+
+    Ok(Json(serde_json::to_value(&results).map_err(|_| Error::UnknownError)?))
 }
 
-async fn read_user(Path(_id): Path<String>) -> Result<Json<Value>>{
-    println!("HANDLER: READ USER BY ID {}", _id);
-    Ok(Json(json!({"status": "works"})))
+async fn read_user(State(app_state): State<AppState>, Path(id): Path<String>) -> Result<Json<Value>>{
+    println!("HANDLER: READ USER BY ID {}", id);
+    let id = id.parse().map_err(|_| Error::UnknownError)?;
+    let results = app_state.user_by_id(id).await?;
+
+    Ok(Json(serde_json::to_value(&results).map_err(|_| Error::UnknownError)?))
 }
 
 async fn delete_user() {}

@@ -31,11 +31,10 @@ async fn main() {
     if !Sqlite::database_exists(sqlite_url).await.unwrap_or(false) {
         Sqlite::create_database(sqlite_url).await.unwrap();
     }
-
-
     let pool = SqlitePoolOptions::new().connect(sqlite_url).await.unwrap();
 
     let app_state = AppState::new(pool);
+    app_state.init_database().await.unwrap();
 
     let port = match env::var("BACKEND_PORT") {
         Ok(p) => p,

@@ -50,7 +50,11 @@ async fn test_user_create() -> Result<()> {
         "password" : "password"
     })).await?.print().await?;
 
-    client.do_post("/users", json!({"id": 12})).await?.print().await?;
+    client.do_post("/users", json!({
+        "full_name": "JohnDimmermann"
+    })).await?.print().await?;
+
+    client.do_get("/users").await?.print().await?;
     Ok(())
    
 }
