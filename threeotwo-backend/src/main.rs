@@ -14,11 +14,12 @@ use tower_http::cors::{AllowOrigin, CorsLayer};
 
 mod error;
 use crate::app_state::AppState;
-use crate::error::{Result, Error};
+use crate::error::Error;
 
 mod auth;
 mod context;
 mod user;
+mod trust;
 
 mod app_state;
 pub use app_state::*;
@@ -50,6 +51,7 @@ async fn main() {
 
     //merge routes here
     let app = Router::new()
+        .nest("/trusts", trust::routes())
         .nest("/users", user::routes())
         .layer(middleware::map_response(map_all_responses))
         .layer(middleware::from_fn(auth::require_auth))
