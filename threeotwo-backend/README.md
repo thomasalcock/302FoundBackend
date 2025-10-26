@@ -12,3 +12,8 @@ rust, axum, sqlite/sqlx
 
 ## Roadmap
 - implement more fine control on the kind of information, each person may see
+- symmetrically find one another
+- implement Oauth for easy auth
+- integrate DRkand health services 
+- QR codes and timed events
+- More kinds of frontend inclusion
